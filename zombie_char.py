@@ -26,7 +26,7 @@ class Ben:
         mainmenu = Menu(self.win)
         self.win.config(menu=mainmenu)
         filemenu = Menu(mainmenu, tearoff=0)
-        filemenu.add_command(label='Новая игра')
+        filemenu.add_command(label='Новая игра', command=self.new_game)
         filemenu.add_command(label='Сохранить', command=self.save)
         filemenu.add_command(label='Загрузить', command=self.load)
         mainmenu.add_cascade(label='Файл', menu=filemenu)
@@ -696,19 +696,18 @@ class Ben:
             self.muscle = data['muscle']
             self.current_panel = data['current_panel']
             self.bonus_dmg = data['bonus_dmg']
-            for i in self.inventory.get(0, END):
-                self.inventory.delete(i)
+            self.inventory.delete(0, END)
             for i in data['inventory']:
                 self.inventory.insert(END, i)
-
+            self.notes.delete(1.0, END)
             self.notes.insert(1.0, data['notes'])
             self.rewrite()
 
     # change variables at start parameters
     def new_game(self):
-        for i in self.inventory.get(0, END):
-            self.inventory.delete(i)
+        self.inventory.delete(0, END)
         self.notes.delete(1.0, END)
+        self.notes.insert(1.0, "Заметки:\n")
         self.hp = 70
         self.ip = 0
         self.bonus = 0
@@ -720,6 +719,7 @@ class Ben:
         self.muscle = 0
         self.current_panel = 1
         self.bonus_dmg = 0
+        self.rewrite()
 
 # class Judi:
 #     def __init__(self, win):
