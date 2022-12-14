@@ -284,7 +284,7 @@ class Ben:
     def error():
         messagebox.showerror('Ошибка!', 'Вы ввели неверные данные.')
 
-    # if first turn gamers
+    # if first turn gamer
     def fight_you(self):
         self.who.destroy()
         while self.hp > 0:
